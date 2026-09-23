@@ -1,0 +1,31 @@
+{
+  "name": "occasio-backend",
+  "version": "1.0.0",
+  "description": "Occasio - Occasion-based social media poster generator backend",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "keywords": [
+    "telegram-bot",
+    "supabase",
+    "gemini-ai",
+    "satori",
+    "resvg",
+    "poster-generator"
+  ],
+  "author": "Occasio Team",
+  "license": "MIT",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.0",
+    "@resvg/resvg-js": "^2.6.2",
+    "@supabase/supabase-js": "^2.49.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "node-telegram-bot-api": "^0.66.0",
+    "satori": "^0.12.1"
+  }
+}

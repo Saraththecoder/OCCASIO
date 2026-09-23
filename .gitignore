@@ -1,0 +1,7 @@
+node_modules/
+.env
+public/uploads/*.png
+!public/uploads/.gitkeep
+assets/fonts/*.ttf
+!assets/fonts/.gitkeep
+.qodo/
