@@ -317,7 +317,14 @@ export function initBotHandlers(expressPort = 3000) {
         }
       }
 
-      await bot.sendMessage(chatId, 'Posted! 🎉 Your occasion poster is ready for social media!');
+      const baseUrl = process.env.RENDER_EXTERNAL_URL || `http://localhost:${expressPort}`;
+      const instaLink = `${baseUrl}/instagram`;
+
+      await bot.sendMessage(
+        chatId,
+        `Posted! 🎉 Your occasion poster is published!\n\n📸 *View your live post on Instagram Storefront:*\n${instaLink}`,
+        { parse_mode: 'Markdown' }
+      );
       clearState(chatId);
       return;
     }
