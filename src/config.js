@@ -17,19 +17,22 @@ export const config = {
 // Check if credentials are valid/mocked
 export const isSupabaseConfigured = Boolean(
   config.supabaseUrl &&
-  config.supabaseUrl !== 'https://mock.supabase.co' &&
+  !config.supabaseUrl.includes('mock') &&
+  !config.supabaseUrl.includes('your-supabase-project') &&
   config.supabaseAnonKey &&
-  config.supabaseAnonKey !== 'mock_anon_key'
+  !config.supabaseAnonKey.includes('your_supabase_anon_key')
 );
 
 export const isGeminiConfigured = Boolean(
   config.geminiApiKey &&
-  config.geminiApiKey !== 'mock_gemini_key'
+  !config.geminiApiKey.includes('mock') &&
+  !config.geminiApiKey.includes('your_gemini_api_key')
 );
 
 export const isTelegramConfigured = Boolean(
   config.telegramBotToken &&
-  config.telegramBotToken !== 'mock_telegram_token'
+  !config.telegramBotToken.includes('mock') &&
+  !config.telegramBotToken.includes('your_telegram_bot_token')
 );
 
 // Supabase Client
