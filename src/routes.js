@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllShops, getAllPosts, getOccasions, getOccasionById } from './db.js';
+import { getAllShops, getAllPosts, getOccasions, getOccasionById, clearAllPosts } from './db.js';
 import { triggerOccasionForShops } from './bot.js';
 
 const router = express.Router();
@@ -13,10 +13,32 @@ router.get('/', (req, res) => {
     endpoints: [
       { path: 'GET /api/shops', description: 'List registered shops' },
       { path: 'GET /api/posts', description: 'List generated posts and statuses' },
+      { path: 'POST /api/reset-demo', description: 'Clear all previous posts from Instagram feed & DB' },
       { path: 'GET /api/occasions', description: 'List available festival occasions' },
       { path: 'POST /api/trigger-occasion', description: 'Trigger occasion prompt for shops (body: { occasionId })' },
     ],
   });
+});
+
+/**
+ * POST /api/reset-demo or DELETE /api/posts - Clear all previous posts
+ */
+router.post('/reset-demo', async (req, res) => {
+  try {
+    await clearAllPosts();
+    res.json({ success: true, message: 'All previous posts cleared from Instagram feed & database!' });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+router.delete('/posts', async (req, res) => {
+  try {
+    await clearAllPosts();
+    res.json({ success: true, message: 'All previous posts cleared!' });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
 });
 
 /**

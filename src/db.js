@@ -223,6 +223,22 @@ export async function getAllPosts() {
 }
 
 /**
+ * Clear all posts from database / memory
+ */
+export async function clearAllPosts() {
+  console.log('🧹 [DB] Clearing all posts');
+  memoryPosts.length = 0; // Clear memory fallback
+
+  if (isSupabaseConfigured) {
+    const { error } = await supabase.from('posts').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+    if (error) {
+      console.error('❌ [DB Error] clearAllPosts:', error.message);
+    }
+  }
+  return true;
+}
+
+/**
  * Save PNG image buffer to Supabase Storage, with fallback to local Express static directory
  */
 export async function uploadPosterImage(imageBuffer, filename = `poster-${Date.now()}.png`, port = 3000) {
