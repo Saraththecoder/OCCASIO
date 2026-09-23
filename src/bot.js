@@ -260,6 +260,14 @@ export function initBotHandlers(expressPort = 3000) {
 
     await bot.answerCallbackQuery(query.id);
 
+    // Category button selection during onboarding
+    if (data.startsWith('cat_')) {
+      const category = data.replace('cat_', '');
+      const state = getState(chatId);
+      await handleCategorySelection(chatId, state.shopName || 'Shop', category);
+      return;
+    }
+
     // Show Events Menu callback
     if (data === 'show_events') {
       await sendEventsMenu(chatId);
