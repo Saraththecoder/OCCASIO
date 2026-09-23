@@ -82,14 +82,21 @@
           return;
         }
 
-        grid.innerHTML = approved.map(p => `
-          <div class="post-card">
-            <img src="${p.poster_image_url}" alt="Occasio Poster">
-            <div class="overlay">
-              <div class="caption">${p.caption_text}</div>
+        grid.innerHTML = approved.map(p => {
+          let imgSrc = p.poster_image_url || '';
+          if (imgSrc.includes('/uploads/')) {
+            const filename = imgSrc.split('/uploads/').pop();
+            imgSrc = '/uploads/' + filename;
+          }
+          return `
+            <div class="post-card">
+              <img src="${imgSrc}" alt="Occasio Poster" onerror="console.warn('Image load error, retrying:', this.src)">
+              <div class="overlay">
+                <div class="caption">${p.caption_text}</div>
+              </div>
             </div>
-          </div>
-        `).join('');
+          `;
+        }).join('');
       } catch (err) {
         console.error(err);
       }

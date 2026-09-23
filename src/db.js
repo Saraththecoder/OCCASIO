@@ -255,7 +255,8 @@ export async function uploadPosterImage(imageBuffer, filename = `poster-${Date.n
   // Local File Fallback
   const filePath = path.join(uploadsDir, filename);
   fs.writeFileSync(filePath, imageBuffer);
-  const localUrl = `http://localhost:${port}/uploads/${filename}`;
+  const host = process.env.RENDER_EXTERNAL_URL || `http://localhost:${port}`;
+  const localUrl = `${host}/uploads/${filename}`;
   console.log(`✅ [Storage] Saved image locally: ${localUrl}`);
   return localUrl;
 }
